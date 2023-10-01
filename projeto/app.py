@@ -1,19 +1,14 @@
 import streamlit as st
 from streamlit_labelstudio import st_labelstudio
+from pathlib import Path
 
 st.set_page_config(layout='wide')
 
-config = """
-      <View>
-        <View style="padding: 25px; box-shadow: 2px 2px 8px #AAA;">
-          <Image name="img" value="$image" width="100%" maxWidth="100%" brightnessControl="true" contrastControl="true" zoomControl="true" rotateControl="true"></Image>
-        </View>
-        <RectangleLabels name="tag" toName="img">
-          <Label value="Hello"></Label>
-          <Label value="Moon"></Label>
-        </RectangleLabels>
-      </View>
-    """
+config_folder = Path("examples/examples/image_polygons")
+
+with open(config_folder/"config.xml","r") as f:
+  config = f.read()
+
 
 interfaces = [
   "panel",
@@ -42,12 +37,20 @@ task = {
 }
 
 results_raw = st_labelstudio(config, interfaces, user, task)
+print(results_raw)
 
 if results_raw is not None:
   areas = [v for k, v in results_raw['areas'].items()]
 
+
   results = []
   for a in areas:
-    results.append({'id':a['id'], 'x':a['x'], 'y':a['y'], 'width':a['width'], 'height':a['height'], 'label':a['results'][0]['value']['rectanglelabels'][0]})
+    results.append({
+      'id':a['id'],
+      'label':a['results'][0]['value']['polygonlabels'][0],
+      'points':a['points'],
+    })
 
-  st.table(results)
+  for result in results:
+    st.header(f'{result["label"]}: ({result["id"]})')
+    st.table(result['points'])
