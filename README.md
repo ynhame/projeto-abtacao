@@ -1,0 +1,7 @@
+# ola
+
+[desenho a map livre no streamlit](https://drawable-canvas.streamlit.app)
+
+[componente que integra o label-studio no streamlit](https://discuss.streamlit.io/t/new-component-streamlit-labelstudio-allows-you-to-embed-the-label-studio-annotation-frontend-into-your-application/9524)
+
+[site do label-studiod](https://labelstud.io)
