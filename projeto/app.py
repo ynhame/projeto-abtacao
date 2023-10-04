@@ -6,7 +6,7 @@ st.set_page_config(layout='wide')
 
 config_folder = Path("examples/examples/image_polygons")
 
-with open(config_folder/"config.xml","r") as f:
+with open(config_folder/"config.xml", "r") as f:
   config = f.read()
 
 
